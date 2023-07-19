@@ -1,0 +1,12 @@
+prepare:
+  steps:
+    - name: Install java
+      command: ./install-java.sh
+    - name: Maven java
+      command: JAVA_HOME="/home/user/jdk-19.0.2" ./mvnw install generate-sources -Pdev -DskipTests     
+test:
+  steps: []
+run:
+  steps:
+    - name: mvn spring-boot:run
+      command: JAVA_HOME="/home/user/jdk-19.0.2" ./mvnw spring-boot:run -Pdev
