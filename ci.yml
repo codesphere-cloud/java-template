@@ -1,5 +1,7 @@
 prepare:
   steps:
+    - name: Set permissions
+      command: chmod +x ./install-java.sh  
     - name: Install java
       command: ./install-java.sh
     - name: Maven java
