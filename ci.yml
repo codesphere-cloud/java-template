@@ -1,14 +1,12 @@
 prepare:
   steps:
-    - name: Set permissions
-      command: chmod +x ./install-java.sh  
     - name: Install java
-      command: ./install-java.sh
-    - name: Maven java
-      command: JAVA_HOME="/home/user/jdk-19.0.2" ./mvnw install generate-sources -Pdev -DskipTests     
+      command: nix-env -iA nixpkgs.jdk19
+    - name: Maven generate sources
+      command: JAVA_HOME="$(readlink -e $(type -p javac) | sed  -e 's/\/bin\/javac//g')" ./mvnw install generate-sources -DskipTests     
 test:
   steps: []
 run:
   steps:
     - name: mvn spring-boot:run
-      command: JAVA_HOME="/home/user/jdk-19.0.2" ./mvnw spring-boot:run -Pdev
+      command: JAVA_HOME="$(readlink -e $(type -p javac) | sed  -e 's/\/bin\/javac//g')" ./mvnw spring-boot:run
