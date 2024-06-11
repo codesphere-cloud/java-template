@@ -1,7 +1,7 @@
 prepare:
   steps:
     - name: Install java
-      command: nix-env -iA nixpkgs.jdk19
+      command: nix-env -iA nixpkgs.jdk
     - name: Maven generate sources
       command: JAVA_HOME="$(readlink -e $(type -p javac) | sed  -e 's/\/bin\/javac//g')" ./mvnw install generate-sources -DskipTests     
 test:
